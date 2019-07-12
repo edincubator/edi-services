@@ -14,7 +14,7 @@ services:
     networks:
       edincubator:
         aliases:
-          phpldapadmin
+          - phpldapadmin
     ports:
       - "389:389"
       - "636:636"

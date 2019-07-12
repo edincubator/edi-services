@@ -147,7 +147,7 @@ services:
   jupyterhub:
     image: edincubator/jupyterhub
     environment:
-      DOCKER_NETWORK_NAME: ediservices_edincubator
+      DOCKER_NETWORK_NAME: ${COMPOSE_NETWORK}
     volumes:
       - /etc/jupyterhub/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py
       - /var/run/docker.sock:/var/run/docker.sock
@@ -169,7 +169,7 @@ services:
       - portus
       - registry
       - jupyterhub
-      - ldapphpadmin
+      - phpldapadmin
     networks:
       edincubator:
         aliases:

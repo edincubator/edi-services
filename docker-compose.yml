@@ -12,7 +12,9 @@ services:
       - /var/lib/ldap:/var/lib/ldap
       - /etc/ldap/slapd.d:/etc/ldap/slapd.d
     networks:
-      - edincubator
+      edincubator:
+        aliases:
+          phpldapadmin
     ports:
       - "389:389"
       - "636:636"

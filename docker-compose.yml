@@ -21,6 +21,8 @@ services:
     image: osixia/phpldapadmin
     environment:
       - PHPLDAPADMIN_LDAP_HOSTS=ldap
+    volumes:
+      - ./secrets/phpldapadmin:/container/service/phpldapadmin/assets/apache2/certs/
     networks:
       - edincubator
 
@@ -158,6 +160,7 @@ services:
     image: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      -  ./secrets:/secrets
     ports:
       - "80:80"
       - "5000:5000"
@@ -166,6 +169,7 @@ services:
       - portus
       - registry
       - jupyterhub
+      - ldapphpadmin
     networks:
       edincubator:
         aliases:

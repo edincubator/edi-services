@@ -16,6 +16,10 @@ services:
     ports:
       - "389:389"
       - "636:636"
+    phpldapadmin:
+      image: osixia/phpldapadmin
+      environment:
+        - PHPLDAPADMIN_LDAP_HOSTS=ldap
   portus:
     image: opensuse/portus:head
     environment: 

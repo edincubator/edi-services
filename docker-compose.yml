@@ -92,6 +92,9 @@ services:
       - PORTUS_BACKGROUND=true
     networks:
       - edincubator
+    ports:
+      - "389:389"
+      - "636:636"
     volumes:
       - ./secrets:/certificates:ro
       - ./secrets/ldap:/ldap-certificates:ro
@@ -149,13 +152,10 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
-      - "389:389"
-      - "636:636"
       - "5000:5000"
       - "5001:5001"
     depends_on:
       - portus
-      - ldap
       - registry
       - jupyterhub
     networks:

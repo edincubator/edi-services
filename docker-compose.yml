@@ -16,10 +16,14 @@ services:
     ports:
       - "389:389"
       - "636:636"
-    phpldapadmin:
-      image: osixia/phpldapadmin
-      environment:
-        - PHPLDAPADMIN_LDAP_HOSTS=ldap
+
+  phpldapadmin:
+    image: osixia/phpldapadmin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
+    networks:
+      - edincubator
+
   portus:
     image: opensuse/portus:head
     environment: 

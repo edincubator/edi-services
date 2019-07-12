@@ -13,6 +13,9 @@ services:
       - /etc/ldap/slapd.d:/etc/ldap/slapd.d
     networks:
       - edincubator
+    ports:
+      - "389:389"
+      - "636:636"
   portus:
     image: opensuse/portus:head
     environment: 
@@ -92,9 +95,6 @@ services:
       - PORTUS_BACKGROUND=true
     networks:
       - edincubator
-    ports:
-      - "389:389"
-      - "636:636"
     volumes:
       - ./secrets:/certificates:ro
       - ./secrets/ldap:/ldap-certificates:ro

@@ -163,6 +163,7 @@ services:
       -  ./secrets:/secrets
     ports:
       - "80:80"
+      - "443:443"
       - "5000:5000"
       - "5001:5001"
     depends_on:

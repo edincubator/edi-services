@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portus-background
+  labels:
+    app: portus-background
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portus-background
+  template:
+    metadata:
+      labels:
+        app: portus-background
+    spec:
+      containers:
+        - name: portus-background
+          image: opensuse/portus:head
+          env:
+            - name: PORTUS_MACHINE_FQDN_VALUE
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_MACHINE_FQDN_VALUE
+                  name: portus-config
+            - name: PORTUS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: PORTUS_DB_PASSWORD
+                  name: portus-secret
+            - name: PORTUS_SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  key: PORTUS_SECRET_KEY_BASE
+                  name: portus-secret
+            - name: PORTUS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: PORTUS_PASSWORD
+                  name: portus-secret
+            - name: PORTUS_CHECK_SSL_USAGE_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_CHECK_SSL_USAGE_ENABLED
+                  name: portus-config
+            - name: CCONFIG_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  key: CCONFIG_PREFIX
+                  name: portus-config
+            - name: CCONFIG_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  key: CCONFIG_PREFIX
+                  name: portus-config
+            - name: PORTUS_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_DB_HOST
+                  name: portus-config
+            - name: PORTUS_DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_DB_DATABASE
+                  name: portus-config
+            - name: PORTUS_DB_POOL
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_DB_POOL
+                  name: portus-config
+            - name: PORTUS_KEY_PATH
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_KEY_PATH
+                  name: portus-config
+            - name: RAILS_SERVE_STATIC_FILES
+              valueFrom:
+                configMapKeyRef:
+                  key: RAILS_SERVE_STATIC_FILES
+                  name: portus-config
+            - name: PORTUS_LDAP_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_ENABLED
+                  name: portus-config
+            - name: PORTUS_LDAP_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_HOSTNAME
+                  name: portus-config
+            - name: PORTUS_LDAP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_PORT
+                  name: portus-config
+            - name: PORTUS_LDAP_UID
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_UID
+                  name: portus-config
+            - name: PORTUS_LDAP_BASE
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_BASE
+                  name: portus-config
+            - name: PORTUS_LDAP_GROUP_BASE
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_GROUP_BASE
+                  name: portus-config
+            - name: PORTUS_LDAP_AUTHENTICATION_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_AUTHENTICATION_ENABLED
+                  name: portus-config
+            - name: PORTUS_LDAP_AUTHENTICATION_BIND_DN
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTUS_LDAP_AUTHENTICATION_BIND_DN
+                  name: portus-config
+            - name: PORTUS_LDAP_AUTHENTICATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: LDAP_ADMIN_PASSWORD
+                  name: portus-secret
+            - name: PORTUS_BACKGROUND
+              value: "true"
+          volumeMounts:
+            - mountPath: /certificates
+              name: portus-certs
+      volumes:
+        - name: portus-certs
+          persistentVolumeClaim:
+            claimName: portus-certs

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portus-config
+data:
+  PORTUS_MACHINE_FQDN_VALUE: portus.edincubator.eu
+  PORTUS_CHECK_SSL_USAGE_ENABLED: "false"
+
+  CCONFIG_PREFIX: PORTUS
+
+  PORTUS_DB_HOST: "portus-db"
+  PORTUS_DB_DATABASE: "portus_production"
+  PORTUS_DB_POOL: "5"
+  # Secrets. It can possibly be handled better with Swarm's secrets.
+  PORTUS_KEY_PATH: "/certificates/portus.key"
+
+  # Since we have no nginx in insecure mode, portus have to
+  # serve the static files
+  RAILS_SERVE_STATIC_FILES: "true"
+
+  # LDAP
+  PORTUS_LDAP_ENABLED: "true"
+  PORTUS_LDAP_HOSTNAME: "ldap-service"
+  PORTUS_LDAP_PORT: "389"
+  PORTUS_LDAP_UID: cn
+  PORTUS_LDAP_BASE: dc=edincubator, dc=eu
+  PORTUS_LDAP_GROUP_BASE: ou=group, dc=edincubator, dc=eu
+  PORTUS_LDAP_AUTHENTICATION_ENABLED: "true"
+  PORTUS_LDAP_AUTHENTICATION_BIND_DN: cn=admin, dc=edincubator, dc=eu

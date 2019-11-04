@@ -12,7 +12,7 @@ data:
   PORTUS_DB_DATABASE: "portus_production"
   PORTUS_DB_POOL: "5"
   # Secrets. It can possibly be handled better with Swarm's secrets.
-  PORTUS_KEY_PATH: "/certificates/portus.key"
+  PORTUS_KEY_PATH: "/certificates/portus.edincubator.eu.key"
 
   # Since we have no nginx in insecure mode, portus have to
   # serve the static files
@@ -23,7 +23,7 @@ data:
   PORTUS_LDAP_HOSTNAME: "ldap-service"
   PORTUS_LDAP_PORT: "389"
   PORTUS_LDAP_UID: cn
-  PORTUS_LDAP_BASE: dc=edincubator, dc=eu
+  PORTUS_LDAP_BASE: ou=user, dc=edincubator, dc=eu
   PORTUS_LDAP_GROUP_BASE: ou=group, dc=edincubator, dc=eu
   PORTUS_LDAP_AUTHENTICATION_ENABLED: "true"
   PORTUS_LDAP_AUTHENTICATION_BIND_DN: cn=admin, dc=edincubator, dc=eu

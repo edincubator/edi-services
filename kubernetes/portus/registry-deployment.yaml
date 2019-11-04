@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  labels:
+    app: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+        - name: registry
+          image: registry:2
+          env:
+            - name: REGISTRY_AUTH_TOKEN_REALM
+              valueFrom:
+                configMapKeyRef:
+                  key: REGISTRY_AUTH_TOKEN_REALM
+                  name: registry-config
+            - name: REGISTRY_AUTH_TOKEN_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  key: REGISTRY_AUTH_TOKEN_SERVICE
+                  name: registry-config
+            - name: REGISTRY_AUTH_TOKEN_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  key: REGISTRY_AUTH_TOKEN_ISSUER
+                  name: registry-config
+            - name: REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE
+              valueFrom:
+                configMapKeyRef:
+                  key: REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE
+                  name: registry-config
+            - name: REGISTRY_NOTIFICATIONS_ENDPOINTS
+              valueFrom:
+                configMapKeyRef:
+                  key: REGISTRY_NOTIFICATIONS_ENDPOINTS
+                  name: registry-config
+          volumeMounts:
+            - mountPath: /secrets/
+              name: portus-certs
+            - mountPath: /var/lib/registry
+              name: registry-repository
+      volumes:
+      - name: portus-certs
+        persistentVolumeClaim:
+          claimName: portus-certs
+      - name: registry-repository
+        persistentVolumeClaim:
+          claimName: registry-repository

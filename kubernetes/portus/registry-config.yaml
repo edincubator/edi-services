@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: registry-config
+data:
+  REGISTRY_AUTH_TOKEN_REALM: http://portus.edincubator.eu/v2/token
+  REGISTRY_AUTH_TOKEN_SERVICE: registry.edincubator.eu
+  REGISTRY_AUTH_TOKEN_ISSUER: portus.edincubator.eu
+  REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /secrets/portus.edincubator.eu.cert
+  REGISTRY_HTTP_TLS_CERTIFICATE: /secrets/registry/registry.edincubator.eu.cert
+  REGISTRY_HTTP_TLS_KEY: /secrets/registry/registry.edincubator.eu.key
+
+
+  # Portus endpoint
+  REGISTRY_NOTIFICATIONS_ENDPOINTS: >
+    - name: portus
+      url: http://portus.edincubator.eu/v2/webhooks/events
+      timeout: 2000ms
+      threshold: 5
+      backoff: 1s

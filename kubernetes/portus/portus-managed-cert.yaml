@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: portus.edincubator.eu
+spec:
+  domains:
+  - portus.edincubator.eu

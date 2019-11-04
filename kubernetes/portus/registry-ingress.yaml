@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: registry-static-ip
+    networking.gke.io/managed-certificates: registry.edincubator.eu
+spec:
+  rules:
+  - host: registry.edincubator.eu
+    http:
+      paths:
+      - backend:
+          serviceName: registry-p2gp8
+          servicePort: 443

@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: portus-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: portus-static-ip
+    networking.gke.io/managed-certificates: portus.edincubator.eu
+spec:
+  rules:
+  - host: portus.edincubator.eu
+    http:
+      paths:
+      - backend:
+          serviceName:  portus-8tsv6
+          servicePort: 443
